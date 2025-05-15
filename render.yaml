@@ -26,6 +26,7 @@ services:
 
   - type: static_site
     name: todo-frontend
+    env: node
     region: oregon # Match the backend region or choose as needed
     plan: free # Or your preferred plan
     buildCommand: npm install && npm run build
