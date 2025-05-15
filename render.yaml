@@ -2,9 +2,9 @@ services:
   - type: web
     name: todo-backend
     env: node
-    region: oregon # You can choose a region closer to you or your users
-    plan: free # Or your preferred plan
-    healthCheckPath: /api # Add a basic health check endpoint to your backend if you don't have one
+    region: oregon
+    plan: free
+    healthCheckPath: /api
     buildCommand: cd backend && npm install
     startCommand: cd backend && npm start
     envVars:
@@ -12,32 +12,30 @@ services:
         value: production
       - key: MONGODB_URI
         value: mongodb+srv://kukkapilla2003:Rithwhick123@todo.pycijt4.mongodb.net/todo
-        # This will be set in the Render dashboard (e.g., your MongoDB Atlas connection string)
-        # Make sure to create this environment variable in Render
       - key: JWT_SECRET
-        generateValue: true # Render can generate a secure secret for you
-      - key: PORT # Render injects this, but good to be explicit if your app uses it
-        value: 5000 # Or let Render inject it by removing this line for PORT
+        generateValue: true
+      - key: PORT
+        value: 5000
       - key: CORS_ORIGIN_URL
         fromService:
-          type: static_site
+          type: web # ✅ fixed here
           name: todo-frontend
-          property: url # Automatically uses the deployed frontend URL
+          property: url
 
   - type: static_site
     name: todo-frontend
     env: node
-    region: oregon # Match the backend region or choose as needed
-    plan: free # Or your preferred plan
+    region: oregon
+    plan: free
     buildCommand: npm install && npm run build
-    staticPublishPath: ./build # Path to your frontend build output
+    staticPublishPath: ./build
     routes:
       - type: rewrite
         source: /*
-        destination: /index.html # For single-page application routing
+        destination: /index.html
     envVars:
       - key: REACT_APP_API_URL
         fromService:
           type: web
           name: todo-backend
-          property: url # Automatically uses the deployed backend URL 
+          property: url
