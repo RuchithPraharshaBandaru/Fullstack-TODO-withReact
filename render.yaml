@@ -18,17 +18,17 @@ services:
         value: 5000
       - key: CORS_ORIGIN_URL
         fromService:
-          type: web # ✅ fixed here
+          type: web
           name: todo-frontend
           property: url
 
-  - type: static
+  - type: web  # ✅ Treat frontend as web service
     name: todo-frontend
-    env: node
+    env: static  # ✅ Special "static" environment for frontend build
     region: oregon
     plan: free
     buildCommand: npm install && npm run build
-    staticPublishPath: ./build
+    staticPublishPath: ./build  # ✅ required to serve static files
     routes:
       - type: rewrite
         source: /*
