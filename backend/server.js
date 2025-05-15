@@ -8,7 +8,12 @@ const todoRoutes = require('./routes/todos');
 const app = express();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN_URL || 'http://localhost:3000', // Fallback for local dev
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // Connect to MongoDB
