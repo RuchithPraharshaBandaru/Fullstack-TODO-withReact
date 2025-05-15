@@ -20,13 +20,12 @@ services:
         value: 5000 # Or let Render inject it by removing this line for PORT
       - key: CORS_ORIGIN_URL
         fromService:
-          type: static
+          type: static_site
           name: todo-frontend
           property: url # Automatically uses the deployed frontend URL
 
-  - type: static
+  - type: static_site
     name: todo-frontend
-    env: static # For static sites, or use 'node' if you need build steps with Node.js
     region: oregon # Match the backend region or choose as needed
     plan: free # Or your preferred plan
     buildCommand: npm install && npm run build
