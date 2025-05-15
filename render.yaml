@@ -17,10 +17,7 @@ services:
       - key: PORT
         value: 5000
       - key: CORS_ORIGIN_URL
-        fromService:
-          type: web
-          name: todo-frontend
-          property: url
+        value: ${RENDER_TODO_FRONTEND_EXTERNAL_URL}
 
   - type: web  # ✅ Treat frontend as web service
     name: todo-frontend
@@ -35,7 +32,4 @@ services:
         destination: /index.html
     envVars:
       - key: REACT_APP_API_URL
-        fromService:
-          type: web
-          name: todo-backend
-          property: url
+        value: ${RENDER_TODO_BACKEND_EXTERNAL_URL}
