@@ -22,7 +22,7 @@ services:
           name: todo-frontend
           property: url
 
-  - type: static_site
+  - type: static
     name: todo-frontend
     env: node
     region: oregon
