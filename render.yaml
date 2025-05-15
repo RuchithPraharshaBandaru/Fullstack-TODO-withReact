@@ -22,7 +22,7 @@ services:
   - type: web  # ✅ Treat frontend as web service
     name: todo-frontend
     env: static  # ✅ Special "static" environment for frontend build
-    region: oregon
+    # region: oregon # Removed: Static sites (or services acting as such) cannot have a region
     plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: ./build  # ✅ required to serve static files
